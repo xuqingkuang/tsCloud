@@ -94,6 +94,7 @@ def get_resources(request, format, slug):
         format, resources,
         excludes = ('slug', 'category', 'download_url', ),
         extras = ('get_download_url', ),
+        relations = category.get_relation_models(),
     ))
 
 def get_storage_token(request, bucket_name = 'cam001-userdata'):

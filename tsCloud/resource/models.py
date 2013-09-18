@@ -14,13 +14,23 @@ class Category(MPTTModel):
     form_class_name = models.CharField(max_length=32, default='ResourceBaseForm')
     need_count      = models.BooleanField(default=False)
     parent          = TreeForeignKey('self', null=True, blank=True, related_name='children')
-    
-    def __unicode__(self):
-        return self.name
-    
+
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('categories')
+
+    def __unicode__(self):
+        return self.name
+
+    def get_relation_models(self):
+        extra_content_keys = {
+            'ycamera-app': {
+                'extraimage_set': {
+                    'exclude': ('resource', )
+                }
+            },
+        }
+        return extra_content_keys.get(self.slug, [])
 
 class Resource(models.Model):
     category        = models.ForeignKey(Category, verbose_name=_('Category'))
