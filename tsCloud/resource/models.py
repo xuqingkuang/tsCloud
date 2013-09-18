@@ -52,7 +52,7 @@ class Resource(models.Model):
         """
         return reverse('resource_download', args=(self.slug, ))
 
-    def download(self, source = 'directly'):
+    def download(self, source = None):
         # TODO : Get the url for redirect to download_url
         today = date.today()
         if source:
@@ -63,6 +63,7 @@ class Resource(models.Model):
         else:
             today_counter, create = self.counter_set.get_or_create(
                 date = today,
+                source = None,
             )
         today_counter.download_num += 1
         today_counter.save()
