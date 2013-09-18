@@ -1,5 +1,5 @@
-CT Cloud App
-============
+tsCloud Readme
+==============
 
 Introduction
 ------------
