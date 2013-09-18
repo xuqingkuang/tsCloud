@@ -24,13 +24,14 @@ class Category(MPTTModel):
 
     def get_relation_models(self):
         extra_content_keys = {
-            'ycamera-app': {
+            'OwnAppForm': {
                 'extraimage_set': {
                     'exclude': ('resource', )
-                }
+                },
+                'ownappspec_set': {},
             },
         }
-        return extra_content_keys.get(self.slug, [])
+        return extra_content_keys.get(self.form_class_name, [])
 
 class Resource(models.Model):
     category        = models.ForeignKey(Category, verbose_name=_('Category'))
@@ -100,3 +101,13 @@ class Counter(models.Model):
 
     class Meta:
         ordering = ('source', 'pk')
+
+class OwnAppSpec(models.Model):
+    resource        = models.ForeignKey(Resource)
+    version_code    = models.IntegerField()
+    protocol_version= models.IntegerField()
+    title           = models.CharField(max_length=255, blank=True, null=True)
+    release_notes   = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ('-pk', )

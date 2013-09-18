@@ -17,6 +17,7 @@ qiniu.conf.SECRET_KEY = settings.QINIU_STORAGE_SECRET
 form_class_name_choices = (
     ('ResourceBaseForm', 'ResourceBaseForm'),
     ('AppForm', 'AppForm'),
+    ('OwnAppForm', 'OwnAppForm'),
     ('UCamResForm', 'UCamResForm'),
     ('YCameraResForm', 'YCameraResForm'),
     ('CrazyEmojiResForm', 'CrazyEmojiResForm'),
@@ -137,6 +138,47 @@ class AppForm(ResourceBaseForm):
         if self.cleaned_data.get('icon_url'):
             self.instance.extraimage_set.create(
                 type = 'icon',
+                image_url = self.cleaned_data['icon_url'],
+            )
+        return ret
+
+class OwnAppForm(AppForm):
+    version_code    = forms.IntegerField()
+    title           = forms.CharField(max_length=255, required=False)
+    release_notes   = forms.CharField(widget=forms.Textarea, required=False)
+    protocol_version= forms.IntegerField()
+    poster          = forms.ImageField(required=False)
+
+    class Meta:
+        model = models.Resource
+        fields = [
+            'category', 'name', 'title', 'version', 'version_code',
+            'protocol_version', 'desc', 'release_notes', 'storage_type',
+            'download_url', 'package_file', 'icon', 'poster',
+            'overwrite_exist_file',
+        ]
+
+    def clean(self, *args, **kwargs):
+        super(OwnAppForm, self).clean(*args, **kwargs)
+        cleaned_data = self.cleaned_data
+        if cleaned_data.get('poster'):
+            cleaned_data['poster_url'] = self.upload_to_remote_storage(
+                cleaned_data_field = cleaned_data['poster']
+            )
+        return cleaned_data
+
+    def save(self, *args, **kwargs):
+        ret = super(OwnAppForm, self).save(*args, **kwargs)
+        self.instance.ownappspec_set.create(
+            version_code = self.cleaned_data['version_code'],
+            protocol_version = self.cleaned_data['protocol_version'],
+            title = self.cleaned_data['title'],
+            release_notes = self.cleaned_data['release_notes'],
+        )
+
+        if self.cleaned_data['poster_url']:
+            self.instance.extraimage_set.create(
+                type = 'poster',
                 image_url = self.cleaned_data['icon_url'],
             )
         return ret

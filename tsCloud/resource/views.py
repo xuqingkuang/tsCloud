@@ -55,8 +55,8 @@ def submit(request, category_slug, template_name='resource/submit.html'):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-        if not request.REQUEST.get('continue'):
-            return redirect(form.instance.get_absolute_url())
+            if not request.REQUEST.get('continue'):
+                return redirect(form.instance.get_absolute_url())
 
     # Render the form
     return render(request, template_name, {
