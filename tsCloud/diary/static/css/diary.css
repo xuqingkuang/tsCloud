@@ -1,0 +1,4 @@
+div.diary { height: 385px; }
+div.chat ul { height: 330px; display: block; overflow: auto; }
+.incoming { color: #5729c1; }
+.outgoing { color: #20608e; }

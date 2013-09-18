@@ -1,0 +1,52 @@
+{% extends "base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}{% trans "Advertisement" %}{% endblock %}
+
+{% block component %}{% trans "Advertisement" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="/photo/"></a>{% endblock %}
+
+{% block extrastyle %}
+	<link rel="stylesheet" type="text/css" href="{% static "css/ad.css" %}">
+{% endblock %}
+
+
+{% block extrahead %}
+		<script type="text/javascript" src="{% static "js/ad.js" %}"></script>
+{% endblock %}
+
+{% block charms-extends %}
+	<div class="row-fluid">
+		<div class="span12">
+			<form action="." method="get">
+				<label for="category-select">{% trans "Select category" %}:</label>
+				<select id="category-select" name="category_id">
+					<option value="">{% trans "All" %}</option>
+					{% for parent in categories %}
+					<optgroup label="{{ parent.name }}">
+						{% for child in parent.children %}
+						<option value="{{ child.id }}" {% ifequal child.has_ads 0 %}disabled="true"{% endifequal %}{% ifequal child.id selected_category %}selected="true"{% endifequal %}>{{ child.name }}</option>
+						{% endfor %}
+					</optgroup>
+					{% endfor %}
+				<select>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="metro span12">
+				{% for ad in ads %}
+				<a class="tile square image" href="{{ ad.get_source_link }}" title="{{ ad.title }}">
+					<img src="{{ ad.banner_240x240.url }}" alt="{{ ad.title }}" />
+				</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

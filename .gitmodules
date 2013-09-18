@@ -1,0 +1,12 @@
+[submodule "submodules/wadofstuff-serializer"]
+	path = submodules/wadofstuff-serializer
+	url = https://github.com/xuqingkuang/wadofstuff-serializer.git
+[submodule "submodules/django-mptt"]
+	path = submodules/django-mptt
+	url = https://github.com/django-mptt/django-mptt.git
+[submodule "submodules/django-mptt-admin"]
+	path = submodules/django-mptt-admin
+	url = https://github.com/leukeleu/django-mptt-admin.git
+[submodule "submodules/qiniu-sdk"]
+	path = submodules/qiniu-sdk
+	url = https://github.com/qiniu/python-sdk.git

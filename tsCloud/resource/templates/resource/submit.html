@@ -1,0 +1,36 @@
+{% extends "base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}{% trans "Resources" %}{% endblock %}
+
+{% block component %}{% trans "Resources" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="{% url "resource_home" %}"></a>{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static "js/resource.js" %}"></script>
+<script type="text/javascript">
+	$(document).ready(Resource.Submit.onLoad);
+</script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <form action="." method="POST" enctype="multipart/form-data">
+                <table class="table">
+                    {{ form.as_table }}
+                    <tr>
+                        <td>{% csrf_token %}</td>
+                        <td>
+                            <input type="submit" class="btn btn-primary" value="{% trans "Submit" %}" />
+                            <input type="submit" class="btn" name="continue" value="{% trans "Submit and continue" %}" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base_site.html" %}
+
+{% load i18n static trunc %}
+
+{% block title %}{% trans "Right here, right now" %}{% endblock %}
+
+{% block component %}{% trans "Right here, right now" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="/ad/"></a>{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static "js/photo.js" %}"></script>
+<script type="text/javascript">
+	$(document).ready(Photo.onLoad);
+</script>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+	   <div class="row">
+	      <div class="metro span12">
+				{% for d in data %}
+				{% if d.is_image %}
+				<a class="tile square image" href="{{ d.get_absolute_url }}" title="{{ d.file_name }}">
+					<img src="{{ d.get_square_url }}" alt="{{ d.desc }}" width="240" height="240" />
+				</a>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

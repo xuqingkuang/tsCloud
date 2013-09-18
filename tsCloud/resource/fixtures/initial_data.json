@@ -1,0 +1,212 @@
+[
+{
+    "pk": 1, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 10, 
+        "name": "App", 
+        "form_class_name": "AppForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": true, 
+        "tree_id": 1, 
+        "slug": "app"
+    }
+},
+{
+    "pk": 2, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "UCam Resource", 
+        "form_class_name": "UCamResForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 2, 
+        "slug": "ucam-resource"
+    }
+},
+{
+    "pk": 3, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "YCamera Resource", 
+        "form_class_name": "YCameraResForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 3, 
+        "slug": "ycamera-resource"
+    }
+},
+{
+    "pk": 4, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Crazy Emoji Resource", 
+        "form_class_name": "Cam001ResForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 4, 
+        "slug": "crazy-emoji-resource"
+    }
+},
+{
+    "pk": 5, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 5, 
+        "slug": "place-holder-1"
+    }
+},
+{
+    "pk": 6, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 6, 
+        "slug": "place-holder-2"
+    }
+},
+{
+    "pk": 7, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 7, 
+        "slug": "place-holder-3"
+    }
+},
+{
+    "pk": 8, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 8, 
+        "slug": "place-holder-4"
+    }
+},
+{
+    "pk": 9, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 9, 
+        "slug": "place-holder-5"
+    }
+},
+{
+    "pk": 10, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 2, 
+        "name": "Place holder", 
+        "form_class_name": "ResourceBaseForm", 
+        "parent": null, 
+        "level": 0, 
+        "lft": 1, 
+        "need_count": false, 
+        "tree_id": 10, 
+        "slug": "place-holder-6"
+    }
+},
+{
+    "pk": 11, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 3, 
+        "name": "UCam", 
+        "form_class_name": "AppForm", 
+        "parent": 1, 
+        "level": 1, 
+        "lft": 2, 
+        "need_count": true, 
+        "tree_id": 1, 
+        "slug": "ucam-app"
+    }
+},
+{
+    "pk": 12, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 5, 
+        "name": "YCamera", 
+        "form_class_name": "AppForm", 
+        "parent": 1, 
+        "level": 1, 
+        "lft": 4, 
+        "need_count": true, 
+        "tree_id": 1, 
+        "slug": "ycamera-app"
+    }
+},
+{
+    "pk": 13, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 7, 
+        "name": "Crazy Emoji", 
+        "form_class_name": "AppForm", 
+        "parent": 1, 
+        "level": 1, 
+        "lft": 6, 
+        "need_count": true, 
+        "tree_id": 1, 
+        "slug": "crazy-emoji-app"
+    }
+},
+{
+    "pk": 14, 
+    "model": "resource.category", 
+    "fields": {
+        "rght": 9, 
+        "name": "3rd Party", 
+        "form_class_name": "AppForm", 
+        "parent": 1, 
+        "level": 1, 
+        "lft": 8, 
+        "need_count": true, 
+        "tree_id": 1, 
+        "slug": "3rd-party-app"
+    }
+}
+]

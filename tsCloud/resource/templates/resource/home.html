@@ -1,0 +1,60 @@
+{% extends "base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}{% trans "Resources" %}{% endblock %}
+
+{% block component %}{% trans "Resources" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="/"></a>{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static "js/resource.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="metro panorama" style="height: 599px; ">
+        <div class="panorama-sections" style="width: 2390px; height: 697px; ">
+            <div class="panorama-section tile-span-4">
+                <h2>{% trans "Resources" %}</h2>
+                <a class="tile app bg-color-orange" href="#">
+                    <div class="image-wrapper">
+                        <span class="icon icon-eye"></span>
+                    </div>
+                    <div class="app-label">{% trans "Report" %}</div>
+                    <div class="app-count">{{ resource.count }}</div>
+                </a>
+
+                <a class="tile app bg-color-blue" href="{% url "resource_submit" "app" %}">
+                    <div class="image-wrapper">
+                        <span class="icon icon-upload"></span>
+                    </div>
+                    <div class="app-label">{% trans "Submit" %}</div>
+                </a>
+
+                <a class="tile app bg-color-blue" href="{% url "resource_list" %}">
+                    <div class="image-wrapper">
+                        <span class="icon icon-drawer"></span>
+                    </div>
+                    <div class="app-label">{% trans "Resource List" %}</div>
+                </a>
+                
+                <a class="tile app bg-color-blue" href="#">
+                    <div class="image-wrapper">
+                        <span class="icon icon-drawer"></span>
+                    </div>
+                    <div class="app-label">{% trans "Category List" %}</div>
+                </a>
+
+                <a class="tile app bg-color-blue" href="#">
+                    <div class="image-wrapper">
+                        <span class="icon icon-star"></span>
+                    </div>
+                    <div class="app-label">{% trans "Recommendations" %}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

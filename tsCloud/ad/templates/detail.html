@@ -1,0 +1,26 @@
+{% load i18n static staticfiles %}{% get_media_prefix as MEDIA_URL %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width">
+<title>{% block title %}{{ ad.title }} - {{ ad.category.name }}{% endblock %} - {% trans 'tsCloud' %}</title>
+<link rel="stylesheet" href="{% static "css/css.css" %}" type="text/css" media="screen" title="mainStylesheet" charset="utf-8">
+</head>
+
+<body>
+ <div class="container">
+ 
+  <div class="top">{{ ad.category.name }} > <span>{{ ad.title }}</span></div>
+  <div><img src="{{ ad.banner_480x762.url }}"/></div>
+  <div class="prin">{% trans "Market price" %}:<span>{{ ad.price_market }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% trans "Supplier price" %}:<span>{{ ad.price_supplier }}</span></div>
+   <!-- 文字内容 -->
+  <div class="xq">
+   <div class="xqn">{% trans "Description" %}</div>
+   <div class="xqr">{{ ad.get_text|escape|linebreaksbr }}</div>
+  </div>
+	 <!-- 按钮 -->
+	 <div><a href="" class="boty">{% trans "Favourite" %}</a></div>
+     <div><a href="" class="botr">{% trans "Buy" %}</a></div>
+</div>
+</body>
+</html>

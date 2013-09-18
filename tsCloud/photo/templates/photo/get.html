@@ -1,0 +1,66 @@
+{% extends "base.html" %}{% load i18n static staticfiles desc %}{% get_media_prefix as MEDIA_URL %}
+
+{% block content %}
+	<div id="container">
+		<!-- Start Advanced Gallery Html Containers -->
+		<div class="photo">
+			<img src="{{ data.get_mobile_size_url }}" alt="{{ data.desc }}" />
+		</div>
+		{% comment %}
+		<div id="infos" class="navigation">
+			<div class="info_block">
+				<div class="row-fluid">
+					<div class="span12 btn-info block">
+						{{ data.desc|replace_to_emotion|linebreaksbr|safe }}
+					</div>
+					<div class="block span12 btn-warning">
+						<div class="title">Geolocation</div>
+						<div lcass="info">
+							{{ data.get_google_map_image_link }}
+							{% if data.have_geo %}
+							<a href="{{ data.get_google_map_url }}" title="Locate the pic in google maps." target="_blank">{{ data.get_location }}</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="block span6 btn-danger">
+							<div class="title">Basic info</div>
+							<div lcass="info">
+								<ul>
+									<li>Created at {{ data.create_time }}</li>
+									<li>Orginal file name is '{{ data.file_name }}'.</li>
+									{% if data.phone_id %}
+									<li>Uploaded with {{ data.phone.model }} with android {{ data.phone.android_version }}.</li>
+									{% endif %}
+									<li>Viewed {{ data.views }} times.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="block span6 btn-success">
+							<div class="title">EXIF</div>
+							<div lcass="info">
+								<ul>
+									{% for exif in data.get_exif_info %}
+									<li>{{ exif.0 }}: {{ exif.1 }}</li>
+									{% empty %}
+									<li>No EXIF info found in the image.</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endcomment %}
+	</div>
+	<footer class="win-commandlayout navbar-fixed-bottom win-ui-light">
+		<div class="span6 align-left">
+			<a class="win-command" href="{{ data.get_data_url }}">
+				<span class="win-commandimage win-commandring">&#xE01D;</span>
+				<span class="win-label">Download full size</span>
+			</a>
+			<hr class="win-command" />
+		</div>
+	</footer>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load i18n static staticfiles %}{% get_media_prefix as MEDIA_URL %}<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width">
+
+	<title>{% block title %}{% trans 'Home' %}{% endblock %} - {% trans 'tsCloud' %}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+   <meta name="robots" content="noindex, nofollow">
+   <meta name="author" content="AozoraLabs by Marcello Palmitessa"/>
+   <!-- remove or comment this line if you want to use the local fonts -->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}"> -->
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootmetro-icons.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootmetro.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootmetro-responsive.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootmetro-ui-light.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/datepicker.css" %}">
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="content/css/bootmetro-icons-ie7.css">
+	<![endif]-->
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/demo.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/fancyBox/jquery.fancybox.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "css/tsCloud.css" %}">
+	{% block extrastyle %}{% endblock %}
+
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="{% static "ico/favicon.ico" %}">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "ico/apple-touch-icon-144-precomposed.png" %}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "ico/apple-touch-icon-114-precomposed.png" %}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "ico/apple-touch-icon-72-precomposed.png" %}">
+	<link rel="apple-touch-icon-precomposed" href="{% static "ico/apple-touch-icon-57-precomposed.png" %}">
+
+   <!-- All JavaScript at the bottom, except for Modernizr and Respond.
+	  Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+	  For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+   <script src="{% static "js/modernizr-2.6.2.min.js" %}"></script>
+	</head>
+	<body>
+		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+		chromium.org/developers/how-tos/chrome-frame-getting-started -->
+		<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+		{% block nav %}{% endblock %}
+		{% block content %}{% endblock %}
+		{% block charms %}{% endblock %}
+
+		<script type="text/javascript" src="{% static "js/jquery-1.8.3.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/bootmetro-panorama.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/bootmetro-pivot.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/bootmetro-charms.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/bootstrap-datepicker.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/jquery.touchSwipe.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/demo.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/holder.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/fancyBox/jquery.fancybox.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/noty/jquery.noty.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/noty/layouts/top.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/noty/themes/default.js" %}"></script>
+		{% block extrahead %}{% endblock %}
+		<script type="text/javascript" charset="utf-8">
+		$('.panorama').panorama({
+			nicescroll: false,
+			showscrollbuttons: true,
+			keyboard: true
+		});
+
+		$('#pivot').pivot();
+		</script>
+	</body>
+</html>

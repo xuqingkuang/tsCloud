@@ -1,0 +1,56 @@
+[
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "thundersoft", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2012-11-07T10:56:30.183Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$i6OdMYEzrOhd$dA6LnVHmei2TZjtYdCjLqsFhmJ8SR5D7GA/ihrs7CVw=", 
+            "email": "kuangxq@thundersoft.com", 
+            "date_joined": "2012-11-07T10:56:30.183Z"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "user1", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-11-07T10:56:30.183Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$i6OdMYEzrOhd$dA6LnVHmei2TZjtYdCjLqsFhmJ8SR5D7GA/ihrs7CVw=", 
+            "email": "kuangxq@thundersoft.com", 
+            "date_joined": "2012-11-07T10:56:30.183Z"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "user2", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-11-07T10:56:30.183Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$i6OdMYEzrOhd$dA6LnVHmei2TZjtYdCjLqsFhmJ8SR5D7GA/ihrs7CVw=", 
+            "email": "kuangxq@thundersoft.com", 
+            "date_joined": "2012-11-07T10:56:30.183Z"
+        }
+    }
+]

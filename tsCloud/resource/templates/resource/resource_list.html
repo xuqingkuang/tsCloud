@@ -1,0 +1,64 @@
+{% extends "base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}{% trans "Resources" %}{% endblock %}
+
+{% block component %}{% trans "Resources" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="{% url "resource_home" %}"></a>{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static "js/resource.js" %}"></script>
+<script type="text/javascript">
+	$(document).ready(Resource.Submit.onLoad);
+</script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <label class="label label-important">{% trans "Tips:" %}</label>
+            {% trans "Click on the download link will down the package directly." %}
+            {% trans "For copy the link just click the link with right button and copy link." %}
+            {% trans "For track the source just add '?source=[source]' in the end of the URL, and provide it to partner " %}
+            {% trans "then when use click the link with source will use a standalone download counter." %}
+        </div>
+        <div class="row">
+            <form action="." method="POST" enctype="multipart/form-data">
+                {# TODO: Toolbar #}
+                <table class="table">
+                    <tr>
+                        <th>{% trans "ID" %}</th>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Version" %}</th>
+                        <th>{% trans "Upload at" %}</th>
+                        <th>{% trans "Download link" %}</th>
+                        <th>{% trans "Active" %}</th>
+                    </tr>
+                    {% for res in resources %}
+                    <tr>
+                        <td>{{ res.pk }}</td>
+                        <td><a href="{% url "resource_detail" res.slug %}">{{ res.name }}</a></td>
+                        <td>{{ res.version }}</td>
+                        <td>{{ res.upload_at }}</td>
+                        <td>
+                            <a href="{{ res.get_download_url }}" title="{% trans "Download link " %}">
+                                {% trans "Download" %}
+                            </a>
+                        </td>
+                        <td>
+                            {% if res.is_active %}<i class="icon icon-checkmark"></i>{% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="align-center">{% trans "No resource found" %}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

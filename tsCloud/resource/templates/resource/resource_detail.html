@@ -1,0 +1,78 @@
+{% extends "base_site.html" %}
+
+{% load i18n static %}
+
+{% block title %}{% trans "Resources" %}{% endblock %}
+
+{% block component %}{% trans "Resources" %}{% endblock %}
+
+{% block homebutton %}<a id="backbutton" class="win-backbutton" href="{% url "resource_list" %}"></a>{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static "js/resource.js" %}"></script>
+<script type="text/javascript">
+	$(document).ready(Resource.Detail.onLoad);
+</script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>{{ resource }}</h1>
+            <table class="table">
+                <tr>
+                    <th>{% trans "ID" %}</th>
+                    <td>{{ resource.pk }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Category" %}</th>
+                    <td>{{ resource.category }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Version" %}</th>
+                    <td>{{ resource.version }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Upload at" %}</th>
+                    <td>{{ resource.upload_at }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Description" %}</th>
+                    <td>{{ resource.desc }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Download URL" %}</th>
+                    <td>
+                        <a href="{{ resource.get_download_url }}">{{ resource.download_url }}</a>
+                        <a href="javascript:void(0)" data-slug="{{ resource.slug }}" class="btnShortUrl btn">{% trans "Short URL" %}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{% trans "Active" %}</th>
+                    <td>{% if resource.is_active %}<i class="icon icon-checkmark"></i>{% else %}<i class="icon icon-close"></i>{% endif %}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <h2>{% trans "Downloads" %}</h2>
+            <table class="table">
+                <tr>
+                    <th>{% trans "Source" %}</th>
+                    <th>{% trans "Download number" %}</th>
+                    <th>{% trans "Date" %}</th>
+                </tr>
+                {% for counter in resource.counter_set.all %}
+                <tr>
+                    <td>{{ counter.source|default:"Directly" }}</td>
+                    <td>{{ counter.download_num }}</td>
+                    <td>{{ counter.date }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="align-center">{% trans "No downloads yet" %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base_site.html" %}{% load trunc %}
+{% load i18n static %}
+
+{% block title %}{% trans "UDiary" %}{% endblock %}
+
+{% block component %}{% trans "UDiary" %}{% endblock %}
+
+{% block extrastyle %}
+	<link rel="stylesheet" type="text/css" href="{% static "css/diary.css" %}">
+{% endblock %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="{% static "js/date.format.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/diary.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="span12 navbar">
+				<div class="navbar-inner">
+					<input type="text" id="dp1" value="02-16-2012" class="span2 datepicker" style="display: none;">
+					<a class="brand" href="#">{% now "m/d/Y" %} <b class="caret"></b></a>
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Weather <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>Beijing</li>
+								<li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-happy icon-black"></i> <b class="caret"></b></a>
+							<ul id="emotionIcons" class="dropdown-menu">
+								<li><a href="#"><i class="icon-happy icon-black"></i> Happy</a></li>
+								<li><a href="#"><i class="icon-smiley icon-black"></i> Smiley</a></li>
+								<li><a href="#"><i class="icon-neutral icon-black"></i> Neutral</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row diary">
+			<div class="span12">
+			 	<textarea rows="20" class="span12"></textarea>
+			</div>
+			<div class="span3 bs-docs-sidebar chat" style="display: none;">
+				<form id="chatForm" action="api/post_message/" method="POST">
+					<ul>
+						<li>Waiting for response from server...</li>
+					</ul>
+					<input class="span2" name="message" />
+					<input type="submit" class="span1" value="Chat" />
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Dialogs -->
+	<div id="foundSameEmotionPrompt" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3 id="myModalLabel">Fond a people have same emotion.</h3>
+		</div>
+		<div class="modal-body">
+			<p>There's a people have same emotion as you, do you wish to talk to him/her?</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			<button id="startChat" class="btn btn-primary" data-dismiss="modal">Start chat!</button>
+		</div>
+	</div>
+
+	<!-- Toolbar -->
+	<footer class="win-commandlayout navbar-fixed-bottom win-ui-dark">
+		<div class="container">
+			<div class="row">
+				<div class="span7 align-left">
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#x002a;</span>
+						<span class="win-label">Take photo</span>
+					</a>
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#x0029;</span>
+						<span class="win-label">Upload image</span>
+					</a>
+					<hr class="win-command" />
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#x0033;</span>
+						<span class="win-label">Record sound</span>
+					</a>
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#x002b;</span>
+						<span class="win-label">Upload audio</span>
+					</a>
+					<hr class="win-command" />
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#xe15a;</span>
+						<span class="win-label">Insert location</span>
+					</a>
+				</div>
+				<div class="span5 align-right">
+					<a class="win-command" href="{{ data.get_data_url }}">
+						<span class="win-commandimage win-commandring">&#xe089;</span>
+						<span class="win-label">Share</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+{% endblock %}
