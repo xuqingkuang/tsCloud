@@ -7,7 +7,7 @@ import models
 
 import qiniu.rs
 
-__all__ = ('generate_short_url', 'get_categories', 'get_resources', 'get_storage_token')
+__all__ = ('generate_short_url', 'get_categories', 'get_resources', 'get_recommendations', 'get_storage_token')
 
 def generate_short_url(request, slug):
     """
@@ -70,7 +70,7 @@ def get_categories(request, format, slug = None):
         fields=('name', 'slug', 'need_count')
     ))
 
-def get_resources(request, format, slug):
+def get_resources(request, format, category_slug=None):
     """
     Get resources belong to a category
 
@@ -81,20 +81,66 @@ def get_resources(request, format, slug):
     Request Format:
         http://[HOST]/resource/api/[CATEGORY_SLUG]/get_resources.[FORMAT]
     Parameters:
-        slug - [String]
+        category_slug - [String]
     Example:
         Request - http://www.thundersoft.com:9978/resource/api/ycamera-app/get_resources.json
     """
-    try:
-        category = models.Category.objects.get(slug = slug)
-    except models.Category.DoesNotExist, err:
-        raise Http404(err)
-    resources = category.resource_set.all()
+    if not category_slug and not request.REQUEST.get('q'):
+        raise Http404('Search parameters is required')
+    if category_slug:
+        try:
+            category = models.Category.objects.get(slug = slug)
+        except models.Category.DoesNotExist, err:
+            raise Http404(err)
+        relations = category.get_relation_models()
+        resources = category.resource_set.all()
+    else:
+        resources = models.Resource.objects.all()
+        relations = ('category', )
+    if request.REQUEST.get('q'):
+        query = simplejson.loads(request.REQUEST['q'])
+        resources = resources.filter(**query)
+    resources = resources.filter(is_active = True)
     return HttpResponse(serializers.serialize(
         format, resources,
-        excludes = ('slug', 'category', 'download_url', ),
-        extras = ('get_download_url', ),
-        relations = category.get_relation_models(),
+        excludes = ('slug', 'download_url', ),
+        extras = ('get_icon_url', 'get_download_url'),
+        relations = relations,
+    ))
+
+def get_recommendations(request, format, category_slug=None):
+    """
+    Get recommendations
+    
+    Method:
+        GET
+    Response:
+        [JSON, XML]
+    Request Format:
+        http://[HOST]/resource/api/[CATEGORY_SLUG]/get_recommendations.[FORMAT]
+    Parameters:
+        category_slug - [String]
+    Example:
+        Request - http://www.thundersoft.com:9978/resource/api/ycamera-app/get_recommendations.json
+    """
+    if not category_slug and not request.REQUEST.get('q'):
+        raise Http404('Search parameters is required')
+    if category_slug:
+        try:
+            category = models.Category.objects.get(slug = category_slug)
+        except models.Category.DoesNotExist, err:
+            raise Http404(err)
+        recommendations = category.recommendation_set.all()
+    else:
+        recommendations = models.Recommendation.objects.all()
+    if request.REQUEST.get('q'):
+        query = simplejson.loads(request.REQUEST['q'])
+        recommendations = recommendations.filter(**query)
+    recommendations = recommendations.filter(resource__is_active = True)
+    return HttpResponse(serializers.serialize(
+        format, recommendations,
+        extras = ('get_icon_url', 'get_desc', 'get_download_url'),
+        relations = ('category', 'resource')
     ))
 
 def get_storage_token(request, bucket_name = 'cam001-userdata'):

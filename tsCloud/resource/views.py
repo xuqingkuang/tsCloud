@@ -62,4 +62,50 @@ def submit(request, category_slug, template_name='resource/submit.html'):
     return render(request, template_name, {
         'form': form,
     })
+
+class RecommendationListView(ListView):
+    template_name = 'resource/recommendation_list.html'
+    context_object_name = 'recommendations'
+    allow_empty = False
     
+    def get_queryset(self):
+        return models.Recommendation.objects.filter(
+            category__slug = self.kwargs['category_slug'],
+            is_active = True
+        )
+
+class RecommendationEditView(TemplateView):
+    model_class = models.Recommendation
+    form_class = forms.RecommendationForm
+    template_name = 'resource/recommendation_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RecommendationEditView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class(initial={
+            'category': self.kwargs['category_slug']
+        })
+        context['recommendations'] = self.model_class.objects.filter(
+            category__slug = self.kwargs['category_slug']
+        ).select_related('category', 'Resource')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            category.recommendation_set.all().delete()
+            resource_pks = request.POST.getlist('resourcePk')
+            index = 10
+            for resource_pk in resource_pks:
+                try:
+                    resource = models.Resource.objects.get(pk = resource_pk)
+                except models.Resource.DoesNotExist:
+                    continue
+                category.recommendation_set.create(
+                    resource = resource,
+                    desc = request.POST.get('desc_' + resource_pk, None),
+                    order = index,
+                    is_active = request.POST.get('isActive_' + resource_pk, False),
+                )
+                index += 10
+        return super(RecommendationEditView, self).get(request, *args, **kwargs)

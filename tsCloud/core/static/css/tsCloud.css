@@ -10,3 +10,5 @@ audio:not([controls]) { display: none; }
 /* =============================================================================
    tsCloud main program display definitions
    ========================================================================== */
+
+.listview-item-object { width: 60px; height: 60px; border: none; background-image: url('../imgs/60x60.png'); }

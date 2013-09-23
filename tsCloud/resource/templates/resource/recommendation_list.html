@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% load i18n %}
+
+{% block content %}
+<div class="listview list-layout">
+    {% for recommendation in recommendations %}
+    <div class="listview-item bg-color-blue">
+        <div class="pull-left" href="#">
+            <img class="listview-item-object" data-src="{{ recommendation.get_icon_url }}">
+        </div>
+        <div class="pull-right">
+            <a href="{{ recommendation.get_download_url }}" class="deleteBtn btn">{% trans "Download" %}</a>
+        </div>
+        <div class="listview-item-body">
+            <h4 class="listview-item-heading">{{ recommendation.resource }}</h4>
+            <h5 class="listview-item-subheading">{{ recommendation.resource.version }}</h5>
+            <p class="two-lines">{{ recommendation.get_desc }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

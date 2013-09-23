@@ -61,7 +61,15 @@ class Resource(models.Model):
         """
         Get download redirect url
         """
-        return reverse('resource_download', args=(self.slug, ))
+        if self.category.need_count:
+            return reverse('resource_download', args=(self.slug, ))
+        return self.dowload_url
+    
+    def get_icon_url(self):
+        icons = self.extraimage_set.filter(type = 'icon')
+        if icons:
+            return icons[0].image_url
+        return ''
 
     def download(self, source = None):
         # TODO : Get the url for redirect to download_url
@@ -87,6 +95,33 @@ class Resource(models.Model):
                 random_string = generate_random_string()
             self.slug = random_string
         return super(Resource, self).save(*args, **kwargs)
+
+class Recommendation(models.Model):
+    category        = models.ForeignKey(Category)
+    resource        = models.ForeignKey(Resource)
+    icon_url        = models.URLField(blank=True, null=True)
+    desc            = models.CharField(
+        verbose_name=_('Short description'), max_length=8192, blank=True, 
+        null=True
+    )
+    order           = models.IntegerField()
+    is_active       = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('category', 'order')
+    
+    def get_icon_url(self):
+        if self.icon_url:
+            return self.icon_url
+        return self.resource.get_icon_url()
+
+    def get_desc(self):
+        if self.desc:
+            return self.desc
+        return self.resource.desc
+
+    def get_download_url(self):
+        return self.resource.get_download_url()
 
 class ExtraImage(models.Model):
     resource        = models.ForeignKey(Resource)

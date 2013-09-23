@@ -214,3 +214,14 @@ class Cam001ResForm(AppResBaseForm):
     def __init__(self, *args, **kwargs):
         super(Cam001ResForm, self).__init__(*args, **kwargs)
         self.__init_remote_storage__(bucket_name = 'cam001')
+
+#################################################
+# App recommendations forms
+#################################################
+
+class RecommendationForm(forms.Form):
+    category = TreeNodeChoiceField(
+        queryset=models.Category.objects.all(),
+        level_indicator=u'+--',
+        to_field_name='slug',
+    )
