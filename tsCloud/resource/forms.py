@@ -23,12 +23,22 @@ form_class_name_choices = (
     ('CrazyEmojiResForm', 'CrazyEmojiResForm'),
 )
 
+extra_image_type_choices = (
+    ('icon', _('Icon')),
+    ('screenshot', _('Screenshot')),
+    ('banner', _('Banner')),
+)
+
 class CategoryAdminForm(forms.ModelForm):
     form_class_name = forms.ChoiceField(choices=form_class_name_choices)
 
     class Meta:
         model = models.Category
 
+class ExtraImageInlineForm(forms.ModelForm):
+    type = forms.ChoiceField(choices=extra_image_type_choices)
+    class Meta:
+        model = models.ExtraImage
 
 #################################################
 # Foundation forms

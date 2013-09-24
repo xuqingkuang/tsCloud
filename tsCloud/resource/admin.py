@@ -17,6 +17,7 @@ class OwnAppSpecInline(admin.StackedInline):
 
 class ExtraImageInline(admin.StackedInline):
     model = models.ExtraImage
+    form = forms.ExtraImageInlineForm
     extra = 1
 
 class ResourceAdmin(admin.ModelAdmin):
