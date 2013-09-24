@@ -18,36 +18,36 @@
         <div class="panorama-sections" style="width: 2390px; height: 697px; ">
             <div class="panorama-section tile-span-4">
                 <h2>{% trans "Resources" %}</h2>
-                <a class="tile app bg-color-orange" href="#">
+                <a class="tile app bg-color-orange bg-color-gray" href="#">
                     <div class="image-wrapper">
-                        <span class="icon icon-eye"></span>
+                        <span class="icon icon-stats"></span>
                     </div>
-                    <div class="app-label">{% trans "Report" %}</div>
+                    <div class="app-label">{% trans "Dashbard" %}</div>
                     <div class="app-count">{{ resource.count }}</div>
                 </a>
 
                 <a class="tile app bg-color-blue" href="{% url "resource_submit" "app" %}">
                     <div class="image-wrapper">
-                        <span class="icon icon-upload"></span>
+                        <span class="icon icon-upload-2"></span>
                     </div>
                     <div class="app-label">{% trans "Submit" %}</div>
                 </a>
 
                 <a class="tile app bg-color-blue" href="{% url "resource_list" %}">
                     <div class="image-wrapper">
-                        <span class="icon icon-drawer"></span>
+                        <span class="icon icon-drawer-3"></span>
                     </div>
                     <div class="app-label">{% trans "Resource List" %}</div>
                 </a>
                 
-                <a class="tile app bg-color-blue" href="#">
+                <a class="tile app bg-color-blue bg-color-gray" href="#">
                     <div class="image-wrapper">
-                        <span class="icon icon-drawer"></span>
+                        <span class="icon icon-list-5"></span>
                     </div>
                     <div class="app-label">{% trans "Category List" %}</div>
                 </a>
 
-                <a class="tile app bg-color-blue" href="{% url "resource_recommendation_edit" "app" %}">
+                <a class="tile app bg-color-yellow" href="{% url "resource_recommendation_edit" "app" %}">
                     <div class="image-wrapper">
                         <span class="icon icon-star"></span>
                     </div>
