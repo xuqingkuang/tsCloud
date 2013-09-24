@@ -82,7 +82,15 @@ Resource.Recommendation.onLoad = function(e) {
             return {'data-value': item["fields"]["name"], 'real-value':item["pk"]};
         }
     });
-    
+
+    // Hook enter key for interrupt form submit
+    $('#appNameInput').keyup(function(e) {
+        if (e.keyCode == '13') {
+            e.preventDefault();
+            $('#addBtn').click();
+        }
+    });
+
     // Add button clicked
     $("#addBtn").click(function(){
         var resourcePk = $("#appNameInput").attr("real-value") || "";
