@@ -37,7 +37,7 @@
                             <div class="listview-item bg-color-blue">
                                 <input type="hidden" name="resourcePk" value="{{ recommendation.resource.pk }}" />
                                 <div class="pull-left" href="#">
-                                    <img class="listview-item-object" data-src="{{ recommendation.get_icon_url }}">
+                                    <img class="listview-item-object" src="{{ recommendation.get_icon_url }}">
                                 </div>
                                 <div class="pull-right">
                                     <input type="checkbox" name="isActive_{{ recommendation.resource.pk }}" class="checkboxActive" {% if recommendation.is_active %}checked="true"{% endif %}>

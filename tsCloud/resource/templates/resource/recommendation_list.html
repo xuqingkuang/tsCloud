@@ -5,7 +5,7 @@
     {% for recommendation in recommendations %}
     <div class="listview-item bg-color-blue">
         <div class="pull-left" href="#">
-            <img class="listview-item-object" data-src="{{ recommendation.get_icon_url }}">
+            <img class="listview-item-object" src="{{ recommendation.get_icon_url }}">
         </div>
         <div class="pull-right">
             <a href="{{ recommendation.get_download_url }}" class="deleteBtn btn">{% trans "Download" %}</a>
