@@ -89,7 +89,7 @@ def get_resources(request, format, category_slug=None):
         raise Http404('Search parameters is required')
     if category_slug:
         try:
-            category = models.Category.objects.get(slug = slug)
+            category = models.Category.objects.get(slug = category_slug)
         except models.Category.DoesNotExist, err:
             raise Http404(err)
         relations = category.get_relation_models()
