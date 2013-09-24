@@ -178,6 +178,7 @@ Resource.Elements.generateSortableRecommendation = function(jsonObj) {
           <img class="listview-item-object" data-src="{{ recommendation.get_icon_url }}"> \
        </div> \
        <div class="pull-right"> \
+           <input type="checkbox" name="isActive_{{ recommendation.resource.pk }}" class="checkbox-active" checked="true"> \
            <a href="javascript:void(0)" class="deleteBtn btn">Delete</a> \
        </div> \
        <div class="listview-item-body"> \
@@ -192,6 +193,7 @@ Resource.Elements.generateSortableRecommendation = function(jsonObj) {
     });
     $html.find('input[name="resourcePk"]').val(jsonObj['pk']);
     $html.find('img.listview-item-object').attr('data-src', jsonObj['extras']['get_icon_url']);
+    $html.find('input.checkbox-active').attr('name', 'isActive_' + jsonObj['pk']);
     $html.find('h4.listview-item-heading').text(jsonObj['fields']['name']);
     $html.find('h5.listview-item-subheading').text(jsonObj['fields']['version']);
     $html.find('p.two-lines').text(jsonObj['fields']['desc']);
