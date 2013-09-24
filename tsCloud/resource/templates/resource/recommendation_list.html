@@ -1,21 +1,28 @@
 {% extends "base.html" %}{% load i18n %}
 
+{% block extrastyle %}
+    <style type="text/css" media="screen">
+    .listview-item-subheading { color: black; }
+    .listview.list-layout { width: 100%; padding: 0px; }
+    .listview-item { color: black; width: 100%; border-bottom: 1px solid #ccc; }
+    </style>
+{% endblock %}
+
 {% block content %}
 <div class="listview list-layout">
     {% for recommendation in recommendations %}
-    <div class="listview-item bg-color-blue">
-        <div class="pull-left" href="#">
-            <img class="listview-item-object" src="{{ recommendation.get_icon_url }}">
+    <a href="{{ recommendation.get_download_url }}">
+        <div class="listview-item">
+            <div class="pull-left" href="#">
+                <img class="listview-item-object" src="{{ recommendation.get_icon_url }}">
+            </div>
+            <div class="listview-item-body">
+                <h3 class="listview-item-heading">{{ recommendation.resource }}</h3>
+                <h6 class="listview-item-subheading">{{ recommendation.resource.version }}</h6>
+                <span class="two-lines">{{ recommendation.get_desc }}</span>
+            </div>
         </div>
-        <div class="pull-right">
-            <a href="{{ recommendation.get_download_url }}" class="deleteBtn btn">{% trans "Download" %}</a>
-        </div>
-        <div class="listview-item-body">
-            <h4 class="listview-item-heading">{{ recommendation.resource }}</h4>
-            <h5 class="listview-item-subheading">{{ recommendation.resource.version }}</h5>
-            <span class="two-lines">{{ recommendation.get_desc }}</span>
-        </div>
-    </div>
+    </a>
     {% endfor %}
 </div>
 {% endblock %}
