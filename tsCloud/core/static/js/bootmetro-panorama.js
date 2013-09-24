@@ -20,7 +20,7 @@
 
 !function ($) {
 
-   "use strict"; // jshint ;_;
+   "use strict";
 
 
    /* PIVOT CLASS DEFINITION
@@ -39,133 +39,192 @@
 
    Panorama.prototype = {
 
+      // init panorama workspace
       init: function(){
          var $this = this
-         // arrange the section container
-         var totalWidth = 0
-         $('.panorama-sections .panorama-section').each(function(index, el){
-            totalWidth += $(el).outerWidth(true)
-         });
-         $('.panorama-sections').width(totalWidth)
+
+         // arrange the panorama height
+         this.$element.height( this.$element.parent().height() - $('#nav-bar').outerHeight() )
+
+         // arrange the section container width
+         $this.resize();
+
+         // setup mousewheel
+         // win8: wheel-down => scroll to right -1 0 -1
+         //       wheel-up   => scroll to left   1 0  1
+         if (this.options.mousewheel){
+            $('.panorama-sections').mousewheel(function(event, delta, deltaX, deltaY) {
+               //e.preventDefault();
+               //console.log(delta, deltaX, deltaY);
+               if (delta > 0){
+                  $this.prev()
+               }
+               else{
+                  $this.next()
+               }
+            });
+         }
+
+         // Arrange Tiles like Win8 ones
+         if (this.options.arrangetiles){
+            $('.panorama-sections .panorama-section').each(function(index, el){
 
 
-         if (!this.options.showscrollbuttons){
+
+
+            });
+         }
+
+
+         // parallax can be activated only if there is CSS3 transition support
+         if (this.options.parallax){
+            // add a class to enable css3 transition
+            $('body').addClass("panorama-parallax");
+         }
+
+         if (this.options.showscrollbuttons){
+            var $p = $('.panorama-sections');
+
+            $('#panorama-scroll-prev').click(function(e){
+               e.preventDefault();
+               $this.prev()
+            });
+
+            $("#panorama-scroll-next").click(function(e){
+               e.preventDefault();
+               $this.next()
+            });
+         } else {
             $('#panorama-scroll-prev').hide()
             $('#panorama-scroll-next').hide()
          }
 
-         // init nicescroll plugin
-         if (this.options.nicescroll){
 
-//            console.log('nicescroll init');
-//            var nicesx = this.$element.niceScroll(".panorama .panorama-sections",
-//               {
-//                  touchbehavior: true, //Modernizr.touch,
-//                  cursorcolor: "#FF00FF",
-//                  cursoropacitymax: 0.6,
-//                  cursorwidth: 24,
-//                  usetransition: true,
-//                  hwacceleration: true,
-//                  autohidemode: "hidden"
-//               });
-//
-         } else {
-
-            if (this.options.showscrollbuttons){
-               var $p = $('.panorama-sections');
-
-               $('#panorama-scroll-prev').click(function(e){
-                  e.preventDefault();
+         //Enable swiping...
+         $(".panorama").swipe( {
+            //Generic swipe handler for all directions
+            swipe:function(event, direction, distance, duration, fingerCount) {
+               if (direction=='right'){
                   $this.prev()
-               });
-
-               $("#panorama-scroll-next").click(function(e){
-                  e.preventDefault();
+               }
+               if (direction=='left'){
                   $this.next()
-               });
+               }
             }
+            ,threshold: 0
+            //ingers: 'all'
+         });
 
-            //Enable swiping...
-            $(".panorama").swipe( {
-               //Generic swipe handler for all directions
-               swipe:function(event, direction, distance, duration, fingerCount) {
-                  if (direction=='right'){
-                     $this.prev()
-                  }
-                  if (direction=='left'){
-                     $this.next()
-                  }
-               },
-               threshold:0,
-               fingers:'all'
-            });
+         $this.setButtons()
 
-            $this.setButtons()
-         }
 
          if (this.options.keyboard){
             $(document).on('keyup', function ( e ) {
-               if (e.which == 37) // left-arrow
+               if (e.which == 37) { // left-arrow
                   $this.prev()
+               }
 
-               if (e.which == 39) // right-arrow
+               if (e.which == 39) { // right-arrow
                   $this.next()
+               }
             })
          }
 
-      }
+
+//         $(window).resize(function() {
+//
+//            // call resize function
+//
+//         });
+
+      } // end init
 
       , next: function () {
          var $this = this
          this.$current++
-         if (this.$current >= this.$groups.length)
+         if (this.$current >= this.$groups.length){
             this.$current = this.$groups.length - 1
+         }
 
          var $p = $('.panorama-sections');
          var targetOffset = $(this.$groups[this.$current]).position().left
 
-         $p.animate({
-            marginLeft: -targetOffset
-         }, 200, 'swing', function(){$this.setButtons()})
+
+         if (this.options.parallax && $.support.transition){
+            $('body').css('background-position', (targetOffset / 2) + 'px 0px')
+         }
+
+         $p.animate({ marginLeft: -targetOffset },
+            {
+               duration: 200,
+               easing: 'swing'
+               ,complete: function(){$this.setButtons()}
+            }
+         );
 
       }
 
       , prev: function () {
          var $this = this
          this.$current--
-         if (this.$current < 0)
+         if (this.$current < 0){
             this.$current = 0
+         }
 
          var $p = $('.panorama-sections');
          var targetOffset = $(this.$groups[this.$current]).position().left
 
+         if (this.options.parallax && $.support.transition){
+            $('body').css('background-position', (targetOffset / 2) + 'px 0px')
+         }
+
          $p.animate({
-            marginLeft: -targetOffset
-         }, 200, 'swing', function(){$this.setButtons()})
+               marginLeft: -targetOffset
+            },
+            {
+               duration: 200,
+               easing: 'swing'
+               ,complete: function(){$this.setButtons()}
+            }
+         );
+
+      }
+
+      , resize: function(){
+         // arrange the section container width
+         var totalWidth = 0
+         $('.panorama-sections .panorama-section').each(function(index, el){
+            totalWidth += $(el).outerWidth(true)
+         });
+         $('.panorama-sections')
+            .width(totalWidth)
+            .height( this.$element.parent().height())
 
       }
 
       , setButtons: function () {
 
-         if (!this.options.showscrollbuttons)
+         if (!this.options.showscrollbuttons){
             return false;
+         }
 
-            if (this.$current === 0)
+         if (this.$current === 0){
             $("#panorama-scroll-prev").hide();
-         else
+         } else {
             $("#panorama-scroll-prev").show();
+         }
 
-         if (this.$current === this.$groups.length - 1)
+         if (this.$current === this.$groups.length - 1){
             $("#panorama-scroll-next").hide();
-         else
+         } else {
             $("#panorama-scroll-next").show();
+         }
       }
-
 
    }
 
 
-   /* PIVOT PLUGIN DEFINITION
+   /* PANORAMA PLUGIN DEFINITION
     * ========================== */
 
    $.fn.panorama = function (option) {
@@ -174,16 +233,23 @@
             , data = $this.data('panorama')
             , options = $.extend({}, $.fn.panorama.defaults, typeof option == 'object' && option)
             , action = typeof option == 'string' ? option : options.slide
-         if (!data) $this.data('panorama', (data = new Panorama(this, options)))
+         if (!data) {
+            $this.data('panorama', (data = new Panorama(this, options)))
+         }
 //         if (typeof option == 'number') data.to(option)
-         else if (action) data[action]()
+         else if (action){
+            data[action]()
+         }
+
       })
    }
 
    $.fn.panorama.defaults = {
-      nicescroll: true,
       showscrollbuttons: true,
-      keyboard: true
+      parallax: false,
+      keyboard: true,
+      mousewheel: true,
+      arrangetiles: true
    }
 
    $.fn.panorama.Constructor = Panorama

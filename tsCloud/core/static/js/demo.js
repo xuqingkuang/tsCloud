@@ -50,10 +50,10 @@ $(function(){
       $this.addClass('selected');
    });
 
-   // FlipView demo
-   $('#myFlipview').carousel()
+//   // FlipView demo
+//   $('#myFlipview').carousel()
 
-
+   $('.bs-docs-example-commands .win-command').tooltip();
 });
 
 
@@ -61,13 +61,41 @@ $(function(){
 //function to append a new theme stylesheet with the new style changes
 function updateCSS(css){
 
-   $("head").append('<link rel="stylesheet" type="text/css" href="../static/css/' + css +'.css">');
+   $("head").append('<link rel="stylesheet" type="text/css" href="assets/css/' + css +'.css">');
 
    if($("link[href*=metro-ui-]").size() > 1){
       $("link[href*=metro-ui-]:first").remove();
    }
    
 }
+
+
+
+/* Win8 animation */
+function showDashBoard(){
+   for(var i = 1; i <= 3; i++) {
+      $('.col'+i).each(function(){
+         $(this).addClass('fadeInForward-'+i).removeClass('fadeOutback');
+      });
+   }
+}
+
+function fadeDashBoard(){
+   for(var i = 1; i <= 3; i++) {
+      $('.col'+i).addClass('fadeOutback').removeClass('fadeInForward-'+i);
+   }
+}
+
+$('.big, .small').each(function(){
+   var $this= $(this),
+      page = $this.data('page');
+   $this.on('click',function(){
+      $('.page.'+page).addClass('openpage');
+      fadeDashBoard();
+   })
+});
+
+
 
 
 

@@ -1,26 +1,14 @@
 ﻿/* ==========================================================
- * bootstrap-pivot.js v1.0
+ * bootstrap-pivot.js v1.0.0 alpha1
  * http://aozora.github.com/bootmetro/
  * ==========================================================
- * Copyright 2012 Marcello Palmitessa
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013 Marcello Palmitessa
  * ========================================================== */
 
 
 !function ($) {
 
-   "use strict"; // jshint ;_;
+   "use strict";
 
 
    /* PIVOT CLASS DEFINITION
@@ -38,7 +26,7 @@
    Pivot.prototype = {
 
       to: function (pos) {
-         var $active = this.$element.find('.pivot-item.active')
+         var $active = this.$element.find('> .pivot-items > .pivot-item.active').eq(0)
             , children = $active.parent().children()
             , activePos = children.index($active)
             , that = this
@@ -70,7 +58,7 @@
       }
 
       , slide: function (type, next) {
-         var $active = this.$element.find('.pivot-item.active')
+         var $active = this.$element.find('> .pivot-items > .pivot-item.active').eq(0)
             , $next = next || $active[type]()
             , direction = type == 'next' ? 'left' : 'right'
             , fallback  = type == 'next' ? 'first' : 'last'
@@ -79,7 +67,7 @@
 
          this.sliding = true
 
-         $next = $next.length ? $next : this.$element.find('.pivot-item')[fallback]()
+         $next = $next.length ? $next : this.$element.find('> .pivot-items > .pivot-item')[fallback]()
 
          e = $.Event('slide', {
             relatedTarget: $next[0]
@@ -152,7 +140,7 @@
       var $this = $(this), href
          , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
          , options = $.extend({}, $target.data(), $this.data())
-         , $index = parseInt($this.attr('data-pivot-index'));
+         , $index = parseInt($this.attr('data-pivot-index'), 10);
 
       $('[data-pivot-index].active').removeClass('active')
       $this.addClass('active')

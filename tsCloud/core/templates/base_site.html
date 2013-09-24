@@ -4,99 +4,96 @@
 <!-- Header
 ================================================== -->
 <header id="nav-bar" class="container">
-	<div class="row">
-		<div class="span12">
-			<div id="header-container">
-				{% block homebutton %}<a id="backbutton" class="win-backbutton" href="/"></a>{% endblock %}
-				<h5>{% trans 'Thundersoft' %}</h5>
-				<div class="dropdown">
-					<a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
-						{% block component %}Home page{% endblock %}
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						{# <li><a href="/diary/">{% trans "UDiary" %}</a></li> #}
-						<li><a href="/photo/">{% trans "Right here, right now" %}</a></li>
-						<li><a href="/resource/">{% trans "Resources" %}</a></li>
-						{# <li><a href="/ad/">{% trans "Advertisement" %}</a></li> #}
-					</ul>
-				</div>
-			</div>
+    <div class="row">
+        <div class="span12">
+            <div id="header-container">
+                {% block homebutton %}<a id="backbutton" class="win-backbutton" href="/"></a>{% endblock %}
+                <h5>{% trans 'Thundersoft' %}</h5>
+                <div class="dropdown">
+                    <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#">
+                        {% block component %}Home page{% endblock %}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {# <li><a href="/diary/">{% trans "UDiary" %}</a></li> #}
+                        <li><a href="/photo/">{% trans "Right here, right now" %}</a></li>
+                        <li><a href="/resource/">{% trans "Resources" %}</a></li>
+                        {# <li><a href="/ad/">{% trans "Advertisement" %}</a></li> #}
+                    </ul>
+                </div>
+            </div>
 
-			<div id="top-info" class="pull-right">
-				<a id="settings" class="pull-right" href="#">
-					<b class="icon-settings"></b>
-				</a>
-				<!--<hr class="separator pull-right"/>-->
-				<a id="logged-user" href="#" class="pull-right">
-					<b class="icon-user-2"></b>
-				</a>
-				<div class="pull-left">
-					{% block user %}
-					{% if user.is_authenticated %}
-					<div class="top-info-block">
-						<h3>{{ user.get_full_name }}</h3>
-						<h4>{{ user.username }}</h4>
-					</div>
-					{% else %}
-					<div class="top-info-block">
-						<h3>{% trans "Welcome" %}</h3>
-						<h4>{% trans "Please login." %}</h4>
-					</div>
-					{% endif %}
-					{% endblock %}
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="pull-right">
+                <div id="top-info" class="pull-right">
+                    <a id="settings" href="#" class="win-command pull-right">
+                        <span class="win-commandicon win-commandring icon-cog-3"></span>
+                    </a>
+                    <a id="logged-user" href="#" class="win-command pull-right">
+                        <span class="win-commandicon win-commandring icon-user"></span>
+                    </a>
+                    <div class="pull-left">
+                        {% block user %}
+                        {% if user.is_authenticated %}
+                        <h3>{{ user.get_full_name }}</h3>
+                        <h4>{{ user.username }}</h4>
+                        {% else %}
+                        <h3>{% trans "Welcome" %}</h3>
+                        <h4>{% trans "Please login." %}</h4>
+                        {% endif %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 {% endblock %}
 
 {% block charms %}
-	<div id="charms" class="win-ui-dark slide">
-		<div id="theme-charms-section" class="charms-section">
-			<div class="charms-header">
-				<a href="#" class="close-charms win-backbutton"></a>
-				<h2>Settings</h2>
-			</div>
-			{% if user.is_authenticated %}
-			<div class="row-fluid">
-				<div class="span12">
-					<form>
-					{% if user.is_staff %}
-					<a class="btn btn-primary" href="/admin"><i class="icon-cog icon-black"></i> Admin</a>
-					{% endif %}
-					<a class="btn btn-primary" href="/accounts/logout/?next={{ request.get_full_path }}"><i class="icon-locked icon-black"></i> Logout</a>
-					</form>
-				</div>
-			</div>
-			{% else %}
-			<div class="row-fluid">
-				<div class="span12">
-					<form method="post" action="/accounts/login/">
-						{% csrf_token %}
-						<label for="username">{% trans "Login" %}:</label>
-						<input id="username" type="text" name="username" placeholder="{% trans "User name" %}" />
-						<input id="password" type="password" name="password" placeholder="{% trans "Password" %}" />
-						<input type="hidden" name="next" value="{{ request.get_full_path }}" />
-						<input type="submit" value="Login" />
-					</form>
-				</div>
-			</div>
-			{% endif %}
-			<div class="row-fluid">
-				<div class="span12">
-					<form class="">
-						<label for="win-theme-select">Change theme:</label>
-						<select id="win-theme-select" class="">
-							<option value="metro-ui-light">Light</option>
-							<option value="metro-ui-dark">Dark</option>
-						</select>
-					</form>
-				</div>
-			</div>
-			{% block charms-extends %}
-			{% endblock %}
-		</div>
-	</div>
+    <div id="charms" class="win-ui-dark slide">
+        <div id="theme-charms-section" class="charms-section">
+            <div class="charms-header">
+                <a href="#" class="close-charms win-backbutton"></a>
+                <h2>Settings</h2>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <form>
+                    {% if user.is_staff %}
+                    <a class="btn btn-primary" href="/admin"><i class="icon-cog icon-black"></i> Admin</a>
+                    {% endif %}
+                    <a class="btn btn-primary" href="/accounts/logout/?next={{ request.get_full_path }}"><i class="icon-locked icon-black"></i> Logout</a>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <form method="post" action="/accounts/login/">
+                        {% csrf_token %}
+                        <label for="username">{% trans "Login" %}:</label>
+                        <input id="username" type="text" name="username" placeholder="{% trans "User name" %}" />
+                        <input id="password" type="password" name="password" placeholder="{% trans "Password" %}" />
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                        <input type="submit" value="Login" />
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <form class="">
+                        <label for="win-theme-select">Change theme:</label>
+                        <select id="win-theme-select" class="">
+                            <option value="metro-ui-light">Light</option>
+                            <option value="metro-ui-dark">Dark</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            {% block charms-extends %}
+            {% endblock %}
+        </div>
+    </div>
 {% endblock %}
