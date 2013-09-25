@@ -24,6 +24,7 @@ form_class_name_choices = (
 )
 
 extra_image_type_choices = (
+    ('', '-----------'),
     ('icon', _('Icon')),
     ('screenshot', _('Screenshot')),
     ('banner', _('Banner')),
