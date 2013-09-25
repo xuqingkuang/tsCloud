@@ -187,10 +187,10 @@ class OwnAppForm(AppForm):
             release_notes = self.cleaned_data['release_notes'],
         )
 
-        if self.cleaned_data['poster_url']:
+        if self.cleaned_data.get('poster_url'):
             self.instance.extraimage_set.create(
                 type = 'poster',
-                image_url = self.cleaned_data['icon_url'],
+                image_url = self.cleaned_data['poster_url'],
             )
         return ret
 
