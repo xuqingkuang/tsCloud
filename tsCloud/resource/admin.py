@@ -4,12 +4,18 @@ from django_mptt_admin.admin import DjangoMpttAdmin
 
 import models, forms
 
+class RecommendationInline(admin.TabularInline):
+    model = models.Recommendation
+    extra = 1
+
 class CategoryAdmin(DjangoMpttAdmin):
     tree_auto_open = 0
     list_display = ('name', 'need_count')
     form = forms.CategoryAdminForm
     search_fields = ('name', )
-
+    inlines = (
+        RecommendationInline,
+    )
 
 class OwnAppSpecInline(admin.StackedInline):
     model = models.OwnAppSpec
@@ -25,9 +31,9 @@ class ResourceAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('name', )
     readonly_fields = ('slug', )
-    inlines = [
+    inlines = (
         OwnAppSpecInline, ExtraImageInline
-    ]
+    )
 
 admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Resource, ResourceAdmin)
