@@ -59,5 +59,26 @@
                 </table>
             </form>
         </div>
+        {% if is_paginated %}
+        <div class="row">
+            <div class="pagination pagination-centered">
+                <ul>
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a></li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                    {% ifequal page_obj.number i %}
+                    <li class="active"><a href="javascript:void(0)">{{ i }}</a></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endifequal %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>
+                    {% endif %}
+                </ul>
+            </div><!-- div.pagination -->
+        </div>
+        {% endif %}
     </div>
 {% endblock %}
