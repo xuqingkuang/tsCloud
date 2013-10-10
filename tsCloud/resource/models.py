@@ -63,7 +63,7 @@ class Resource(models.Model):
         """
         if self.category.need_count:
             return reverse('resource_download', args=(self.slug, ))
-        return self.dowload_url
+        return self.download_url
     
     def get_icon_url(self):
         icons = self.extraimage_set.filter(type = 'icon')
