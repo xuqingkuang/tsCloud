@@ -223,7 +223,7 @@ class YCameraResForm(AppResBaseForm):
 
 class CrazyEmojiResForm(AppResBaseForm):
     def __init__(self, *args, **kwargs):
-        super(Cam001ResForm, self).__init__(*args, **kwargs)
+        super(CrazyEmojiResForm, self).__init__(*args, **kwargs)
         self.__init_remote_storage__(bucket_name = 'cam001')
 
 #################################################
