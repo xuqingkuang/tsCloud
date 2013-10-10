@@ -221,7 +221,7 @@ class YCameraResForm(AppResBaseForm):
         self.__init_remote_storage__(bucket_name = 'ycamera')
     
 
-class Cam001ResForm(AppResBaseForm):
+class CrazyEmojiResForm(AppResBaseForm):
     def __init__(self, *args, **kwargs):
         super(Cam001ResForm, self).__init__(*args, **kwargs)
         self.__init_remote_storage__(bucket_name = 'cam001')
