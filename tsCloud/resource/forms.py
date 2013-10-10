@@ -199,15 +199,38 @@ class OwnAppForm(AppForm):
 #################################################
 
 class AppResBaseForm(ResourceBaseForm):
-    res_file        = forms.FileField(label=_('Resource file'))
+    download_url    = forms.FileField(label=_('Resource file'))
     icon            = forms.ImageField(label=_('Icon'), required=False)
 
     class Meta:
         model = models.Resource
         fields = [
-            'category', 'name', 'version', 'desc', 'res_file', 'icon', 
+            'category', 'name', 'version', 'desc', 'download_url', 'icon',
             'overwrite_exist_file'
         ]
+
+    def clean(self, *args, **kwargs):
+        super(AppResBaseForm, self).clean(*args, **kwargs)
+        cleaned_data = self.cleaned_data
+        cleaned_data['download_url'] = self.upload_to_remote_storage(
+            cleaned_data_field = cleaned_data['download_url']
+        )
+
+        # Upload icon to remote storage
+        if cleaned_data.get('icon'):
+            cleaned_data['icon_url'] = self.upload_to_remote_storage(
+                cleaned_data_field = cleaned_data['icon']
+            )
+        return cleaned_data
+
+    def save(self, *args, **kwargs):
+        ret = super(AppResBaseForm, self).save(*args, **kwargs)
+        if self.cleaned_data.get('icon_url'):
+            self.instance.extraimage_set.create(
+                type = 'icon',
+                image_url = self.cleaned_data['icon_url'],
+            )
+        return ret
 
 class UCamResForm(AppResBaseForm):
     def __init__(self, *args, **kwargs):
