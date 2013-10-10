@@ -86,7 +86,7 @@
     "fields": {
         "rght": 2, 
         "name": "Crazy Emoji Resource", 
-        "form_class_name": "Cam001ResForm", 
+        "form_class_name": "CrazyEmojiResForm", 
         "parent": null, 
         "level": 0, 
         "lft": 1, 
