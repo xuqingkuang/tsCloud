@@ -136,7 +136,7 @@ def get_recommendations(request, format, category_slug=None):
     if request.REQUEST.get('q'):
         query = simplejson.loads(request.REQUEST['q'])
         recommendations = recommendations.filter(**query)
-    recommendations = recommendations.filter(resource__is_active = True)
+    recommendations = recommendations.filter(is_active = True)
     return HttpResponse(serializers.serialize(
         format, recommendations,
         extras = ('get_icon_url', 'get_desc', 'get_download_url'),
