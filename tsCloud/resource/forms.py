@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _
 from mptt.forms import TreeNodeChoiceField
 
 import qiniu.conf, qiniu.rs, qiniu.io
-import models
+import urllib, models
 
 qiniu.conf.ACCESS_KEY = settings.QINIU_STORAGE_KEY
 qiniu.conf.SECRET_KEY = settings.QINIU_STORAGE_SECRET
@@ -72,7 +72,7 @@ class ResourceBaseForm(forms.ModelForm):
     def generate_download_url(self, filename):
         return 'http://%s.qiniudn.com/%s' % (
             self.STORAGE_BUCKET_NAME,
-            filename
+            urllib.quote(filename)
         )
 
     def check_remote_storage_file(self, filename):
