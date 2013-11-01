@@ -245,9 +245,36 @@ class YCameraResForm(AppResBaseForm):
     
 
 class CrazyEmojiResForm(AppResBaseForm):
+    poster          = forms.ImageField(required=False)
+
+    class Meta:
+        model = models.Resource
+        fields = [
+            'category', 'name', 'version', 'desc', 'download_url', 'icon',
+            'poster', 'overwrite_exist_file'
+        ]
+
     def __init__(self, *args, **kwargs):
         super(CrazyEmojiResForm, self).__init__(*args, **kwargs)
         self.__init_remote_storage__(bucket_name = 'cam001')
+
+    def clean(self, *args, **kwargs):
+        super(CrazyEmojiResForm, self).clean(*args, **kwargs)
+        cleaned_data = self.cleaned_data
+        if cleaned_data.get('poster'):
+            cleaned_data['poster_url'] = self.upload_to_remote_storage(
+                cleaned_data_field = cleaned_data['poster']
+            )
+        return cleaned_data
+
+    def save(self, *args, **kwargs):
+        ret = super(CrazyEmojiResForm, self).save(*args, **kwargs)
+        if self.cleaned_data.get('poster_url'):
+            self.instance.extraimage_set.create(
+                type = 'poster',
+                image_url = self.cleaned_data['poster_url'],
+            )
+        return ret
 
 #################################################
 # App recommendations forms
