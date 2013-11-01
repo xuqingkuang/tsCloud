@@ -10,6 +10,7 @@ from tsCloud.core.utils import generate_random_string
 
 class Category(MPTTModel):
     name            = models.CharField(max_length=255)
+    desc            = models.CharField(max_length=8192, blank=True, null=True)
     slug            = models.SlugField(unique=True)
     form_class_name = models.CharField(max_length=32, default='ResourceBaseForm')
     need_count      = models.BooleanField(default=False)
@@ -125,6 +126,11 @@ class Recommendation(models.Model):
 
 class ExtraImage(models.Model):
     resource        = models.ForeignKey(Resource)
+    type            = models.CharField(max_length=11)
+    image_url       = models.URLField()
+
+class CategoryImage(models.Model):
+    category        = models.ForeignKey(Category)
     type            = models.CharField(max_length=11)
     image_url       = models.URLField()
 

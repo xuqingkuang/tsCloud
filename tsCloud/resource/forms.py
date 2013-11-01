@@ -36,6 +36,11 @@ class CategoryAdminForm(forms.ModelForm):
     class Meta:
         model = models.Category
 
+class CategoryImageInlineForm(forms.ModelForm):
+    type = forms.ChoiceField(choices=extra_image_type_choices)
+    class Meta:
+        model = models.CategoryImage
+
 class ExtraImageInlineForm(forms.ModelForm):
     type = forms.ChoiceField(choices=extra_image_type_choices)
     class Meta:

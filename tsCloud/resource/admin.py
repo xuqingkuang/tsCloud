@@ -4,6 +4,11 @@ from django_mptt_admin.admin import DjangoMpttAdmin
 
 import models, forms
 
+class CategoryImageInline(admin.TabularInline):
+    model = models.CategoryImage
+    form = forms.CategoryImageInlineForm
+    extra = 1
+
 class RecommendationInline(admin.TabularInline):
     model = models.Recommendation
     extra = 1
@@ -14,7 +19,7 @@ class CategoryAdmin(DjangoMpttAdmin):
     form = forms.CategoryAdminForm
     search_fields = ('name', )
     inlines = (
-        RecommendationInline,
+        CategoryImageInline, RecommendationInline
     )
 
 class OwnAppSpecInline(admin.StackedInline):

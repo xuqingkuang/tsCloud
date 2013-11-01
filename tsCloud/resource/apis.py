@@ -67,7 +67,8 @@ def get_categories(request, format, slug = None):
     return HttpResponse(serializers.serialize(
         format,
         categories,
-        fields=('name', 'slug', 'need_count')
+        fields=('name', 'desc', 'slug', 'need_count'),
+        relations = ('categoryimage_set'),
     ))
 
 def get_resources(request, format, category_slug=None):
