@@ -217,6 +217,10 @@ class AppResBaseForm(ResourceBaseForm):
     def clean(self, *args, **kwargs):
         super(AppResBaseForm, self).clean(*args, **kwargs)
         cleaned_data = self.cleaned_data
+
+        if not cleaned_data.get('download_url'):
+            raise forms.ValidationError(_('Resource file field is required.'))
+
         cleaned_data['download_url'] = self.upload_to_remote_storage(
             cleaned_data_field = cleaned_data['download_url']
         )
